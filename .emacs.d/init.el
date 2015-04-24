@@ -1,4 +1,10 @@
-;;; ディレクトリについて
+;;; installed packages (mainly by auto-install)
+;; auto-install
+;;   http://www.emacswiki.org/emacs/download/auto-install.el
+;; redo+
+;;   http://www.emacswiki.org/emacs/download/redo+.el
+
+;;; load-path について
 ;; user-emacs-directory の定義(v23より前バージョン)
 (when (< emacs-major-version 23)
   (defvar user-emacs-directory "~/.emacs.d"))
@@ -14,7 +20,60 @@
 	    (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; 引数のディレクトリとそのサブディレクトリをload-pathに追加
-(add-to-load-path "elist" "conf" "public-repos")
+(add-to-load-path "elist" "conf" "public-repos" "elisp")
+
+
+;;; パッケージについて
+;; auto-install
+;; M-x install-elisp RET URL RET -> C-c C-c でelispをインストール
+;; 常時有効化したい場合は、init.elに以下のような設定を書くこと
+(when (require 'auto-install nil t)
+  ;; インストールディレクトリの指定
+  (setq auto-install-directory (concat user-emacs-directory "/elisp/"))
+  ;; EmacsWikiに登録されているelispの名前を取得する
+  (auto-install-update-emacswiki-package-name t)
+  ;; 必要であればプロキシの設定を行う
+  ;; (setq url-proxy-services '(("http" . "localhost:8339")))
+  ;; install-elispの関数を利用可能にする
+  (auto-install-compatibility-setup))
+
+;; redo+
+(when (require 'redo+ nil t)
+  ;; C-.にリドゥを割り当てる
+  (global-set-key (kbd "C-.") 'redo))
+
+;; package
+;; Emacs 24以降は標準搭載。それ以前は落としてくること
+;; M-x package-install RET hoge RET でパッケージをインストール
+;; auto-installと違ってパッケージ管理が出来る他、init.elに設定を書く必要も(基本)無い
+(when (require 'package nil t)
+  ;; パッケージリポジトリにMarmaladeと開発者運営のELPAを追加
+  (add-to-list 'package-archives
+	       '("marmalade" . "http://marmalade-repo.org/packages/"))
+  (add-to-list 'package-archives
+	       '("ELPA" . "http://tromey.com/elpa/"))
+  ;; インストールしたパッケージにロードパスを通して読み込む
+  (package-initialize))
+
+;; auto-complete
+;; 入力補完をしてくれるすごいやつ
+(when (require 'auto-complete-config nil t)
+  (add-to-list 'ac-dictionary-directories (concat user-emacs-directory "/elpa/auto-complete-1.4/dict"))
+  (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+  (ac-config-default))
+
+;; egg
+;; GitをEmacs上で使えるようにする
+;; C-x v s で git status 相当、sでステージ・アンステージ(add)、cでコミット
+(when (executable-find "git")
+  (require 'egg nil t))
+
+;; multi-term
+;; Emacs上でターミナルを起動
+;; M-x multi-term
+;;(when (require 'multi-term nil t)
+;;  ;; 使用するシェルを指定
+;;  (setq multi-term-program "/usr/local/bin/bash"))
 
 
 ;;; 表示とか見た目について
@@ -67,3 +126,7 @@
 
 ;; ウィンドウ切り替え。(C-x o)と同じ
 (define-key global-map (kbd "C-t") 'other-window)
+
+;; 矩形編集を便利に。C-RETで開始
+(cua-mode t)
+(setq cua-enable-cua-keys nil) ; t をセットすると、C-cでコピーとか出来る
