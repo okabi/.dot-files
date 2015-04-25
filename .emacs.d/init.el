@@ -3,6 +3,8 @@
 ;;   http://www.emacswiki.org/emacs/download/auto-install.el
 ;; redo+
 ;;   http://www.emacswiki.org/emacs/download/redo+.el
+;; hown
+;;   http://howm.sourceforge.jp/
 
 ;;; load-path について
 ;; user-emacs-directory の定義(v23より前バージョン)
@@ -75,6 +77,18 @@
 ;;  ;; 使用するシェルを指定
 ;;  (setq multi-term-program "/usr/local/bin/bash"))
 
+;; howm
+;; メモ・情報整理用
+;; C-c , , または M-x howm-menu
+;; howmメモ保存場所
+(setq howm-directory (concat user-emacs-directory "/howm"))
+;; howm-menuの言語を日本語に
+(setq howm-menu-lang 'ja)
+;; howmメモを1日1ファイルにする
+; (setq howm-file-name-format "%Y/%m/%Y-%m-%d".howm")
+;; howm-modeを読み込む
+(when (require 'howm-mode nil t)
+  (define-key global-map (kbd "C-c , ,") 'howm-menu))
 
 ;;; 表示とか見た目について
 ;; カラーテーマの変更(v24以降)
