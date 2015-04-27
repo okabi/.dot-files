@@ -5,6 +5,8 @@
 ;;   http://www.emacswiki.org/emacs/download/redo+.el
 ;; hown
 ;;   http://howm.sourceforge.jp/
+;; color-theme
+;;   http://code.google.com/p/gnuemacscolorthemetest/
 
 ;;; load-path について
 ;; user-emacs-directory の定義(v23より前バージョン)
@@ -22,7 +24,7 @@
 	    (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; 引数のディレクトリとそのサブディレクトリをload-pathに追加
-(add-to-load-path "elist" "conf" "public-repos" "elisp")
+(add-to-load-path "public_repos" "elisp" "elpa")
 
 
 ;;; パッケージについて
@@ -73,9 +75,10 @@
 ;; multi-term
 ;; Emacs上でターミナルを起動
 ;; M-x multi-term
-;;(when (require 'multi-term nil t)
-;;  ;; 使用するシェルを指定
-;;  (setq multi-term-program "/usr/local/bin/bash"))
+(when (string-equal (system-name) "ibako")
+    (when (require 'multi-term nil t)
+      ;; 使用するシェルを指定
+      (setq multi-term-program "/usr/local/bin/bash")))
 
 ;; howm
 ;; メモ・情報整理用
@@ -91,17 +94,25 @@
   (define-key global-map (kbd "C-c , ,") 'howm-menu))
 
 ;;; 表示とか見た目について
-;; カラーテーマの変更(v24以降)
-(when (> emacs-major-version 23)
-  (load-theme 'manoj-dark t))
+;; カラーテーマの変更(v24以降は標準のやつ、それより前はcolor-themeを利用)
+(if (> emacs-major-version 23)
+  (load-theme 'manoj-dark t)
+  (when (require 'color-theme nil t)
+    (color-theme-initialize)
+    (color-theme-tty-dark)))
 
 ;; フォント設定
-(set-face-attribute 'default nil :family "Consolas" :height 140)
-(set-fontset-font (frame-parameter nil 'font)
-                  'japanese-jisx0208
-                  (font-spec :family "Hiragino Kaku Gothic ProN"))
-(add-to-list 'face-font-rescale-alist
-             '(".*Hiragino Kaku Gothic ProN.*" . 1.2))
+;; Windows
+(when (string-equal (system-name) "PC-GRANDMOTHER")
+  (set-face-attribute 'default nil :family "Consolas" :height 140)
+  (set-fontset-font (frame-parameter nil 'font)
+		    'japanese-jisx0208
+		    (font-spec :family "Hiragino Kaku Gothic ProN"))
+  (add-to-list 'face-font-rescale-alist
+	       '(".*Hiragino Kaku Gothic ProN.*" . 1.2)))
+;; Ubuntu(ibako)
+(when (string-equal (system-name) "ibako")
+  (add-to-list 'default-frame-alist '(font . "ricty-13.5")))
 
 ;; メニューバーおよびツールバーを非表示に
 (tool-bar-mode 0)
@@ -117,9 +128,14 @@
 
 ;;; モードラインについて
 ;; フォント設定
-(set-face-font 'mode-line "Consolas-14")
-(set-face-font 'mode-line-inactive "Consolas-14")
-(set-face-font 'mode-line-buffer-id "Consolas-15")
+(when (string-equal (system-name) "PC-GRANDMOTHER")
+  (set-face-font 'mode-line "Consolas-14")
+  (set-face-font 'mode-line-inactive "Consolas-14")
+  (set-face-font 'mode-line-buffer-id "Consolas-15"))
+(when (string-equal (system-name) "ibako")
+  (set-face-font 'mode-line "ricty-14")
+  (set-face-font 'mode-line-inactive "ricty-14")
+  (set-face-font 'mode-line-buffer-id "ricty-15"))
 
 ;; カラム番号を表示
 (column-number-mode t)
