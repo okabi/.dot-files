@@ -24,8 +24,13 @@
 	    (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; 引数のディレクトリとそのサブディレクトリをload-pathに追加
-(add-to-load-path "public_repos" "elisp" "elpa")
+(add-to-load-path "public_repos" "elisp" "elpa" "auth")
 
+;; twitter用
+(when (require 'twittering-mode nil t)
+  ;; 認証情報を読み込む
+  (let ((path "twitter-auth"))
+    (load path t)))
 
 ;;; パッケージについて
 ;; auto-install
