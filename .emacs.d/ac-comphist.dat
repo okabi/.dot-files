@@ -1,64 +1,70 @@
-((("or" .
-   [2 0])
-  ("twittering-mode" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
-  ("color-theme-hober" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
-  ("color-theme-jsc-dark" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0])
-  ("color-theme-ld-dark" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0])
-  ("color-theme-classic" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0])
-  ("color-theme-arjen" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0])
-  ("color-theme-montz" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0])
-  ("color-theme-xp" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 1 0])
-  ("color-theme-dark-green" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0])
-  ("kbd" .
-   [1 0 0])
-  ("global-map" .
-   [0 0 0 0 0 0 1 0 0 0])
-  ("define-key" .
-   [0 0 0 0 0 0 0 1 0 0])
-  ("user-emacs-directory" .
-   [0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
-  ("concat" .
-   [0 0 0 0 0 1])
-  ("egg" .
-   [1 0 0])
-  ("executable-find" .
-   [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
-  ("when" .
-   [3 0 0 2])
-  ("nil" .
-   [5 0 0])
-  ("require" .
-   [1 0 0 0 3 2 0])
-  ("multi-term" .
-   [0 0 0 0 0 0 0 0 1 0])
-  ("setq" .
-   [3 0 0 0])
-  ("howm" .
-   [1 0 0 0])
-  ("if" .
-   [1 0])
-  ("color-theme" .
-   [0 0 0 0 0 0 1 0 0 2 0])
-  ("set-face-background" .
-   [0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0])
-  ("modeline" .
-   [0 0 0 0 1 0 0 0])
-  ("set-face-font" .
-   [0 0 0 0 0 0 0 0 0 1 0 0 0])
-  ("message" .
-   [1 0 0 0 0 1 0])
-  ("load-file" .
-   [0 0 0 0 0 0 0 0 1])
+((("auto-mode-alist" .
+   [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0])
+  ("markdown-mode-autoloads" .
+   [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("markdown-mode" .
+   [0 0 0 0 1 0 0 0 0 0 0 0 0])
+  ("system-name" .
+   [0 0 0 0 0 0 1 0 0 0 0])
   ("load" .
    [2 0 0 0])
-  ("system-name" .
-   [0 0 0 0 0 0 1 0 0 0 0])))
+  ("load-file" .
+   [0 0 0 0 0 0 0 0 1])
+  ("message" .
+   [2 0 0 0 0 1 0])
+  ("set-face-font" .
+   [0 0 0 0 0 0 0 0 0 1 0 0 0])
+  ("modeline" .
+   [0 0 0 0 1 0 0 0])
+  ("set-face-background" .
+   [0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("color-theme" .
+   [0 0 0 0 0 0 1 0 0 2 0])
+  ("if" .
+   [1 0])
+  ("howm" .
+   [1 0 0 0])
+  ("setq" .
+   [3 0 0 0])
+  ("multi-term" .
+   [0 0 0 0 0 0 0 0 1 0])
+  ("require" .
+   [1 0 0 0 3 3 0])
+  ("nil" .
+   [6 0 0])
+  ("when" .
+   [5 0 0 2])
+  ("executable-find" .
+   [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
+  ("egg" .
+   [1 0 0])
+  ("concat" .
+   [0 0 0 0 0 1])
+  ("user-emacs-directory" .
+   [0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
+  ("define-key" .
+   [0 0 0 0 0 0 0 1 0 0])
+  ("global-map" .
+   [0 0 0 0 0 0 1 0 0 0])
+  ("kbd" .
+   [1 0 0])
+  ("color-theme-dark-green" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0])
+  ("color-theme-xp" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 1 0])
+  ("color-theme-montz" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0])
+  ("color-theme-arjen" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0])
+  ("color-theme-classic" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0])
+  ("color-theme-ld-dark" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0])
+  ("color-theme-jsc-dark" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0])
+  ("color-theme-hober" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
+  ("twittering-mode" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
+  ("or" .
+   [2 0])))

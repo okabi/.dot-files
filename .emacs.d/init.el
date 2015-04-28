@@ -7,6 +7,8 @@
 ;;   http://howm.sourceforge.jp/
 ;; color-theme
 ;;   http://code.google.com/p/gnuemacscolorthemetest/
+;; markdown-mode
+;;   
 
 ;;; load-path について
 ;; user-emacs-directory の定義(v23より前バージョン)
@@ -97,6 +99,13 @@
 ;; howm-modeを読み込む
 (when (require 'howm-mode nil t)
   (define-key global-map (kbd "C-c , ,") 'howm-menu))
+
+;; markdown-mode
+(when (require 'markdown-mode nil t)
+  (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
+  (when (or (string-equal (system-name) "PC-GRANDMOTHER") (string-equal (system-name) "PC-B012"))
+    (setq markdown-command "perl C:\\strawberry\\perl\\site\\bin\\Markdown.pl")))
+
 
 ;;; 表示とか見た目について
 ;; カラーテーマの変更(v24以降は標準のやつ、それより前はcolor-themeを利用)
