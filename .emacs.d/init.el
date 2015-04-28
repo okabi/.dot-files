@@ -108,7 +108,7 @@
 
 ;; フォント設定
 ;; Windows
-(when (string-equal (system-name) "PC-GRANDMOTHER")
+(when (or (string-equal (system-name) "PC-GRANDMOTHER") (string-equal (system-name) "PC-B012"))
   (set-face-attribute 'default nil :family "Consolas" :height 140)
   (set-fontset-font (frame-parameter nil 'font)
 		    'japanese-jisx0208
@@ -133,7 +133,7 @@
 
 ;;; モードラインについて
 ;; フォント設定
-(when (string-equal (system-name) "PC-GRANDMOTHER")
+(when (or (string-equal (system-name) "PC-GRANDMOTHER") (string-equal (system-name) "PC-B012"))
   (set-face-font 'mode-line "Consolas-14")
   (set-face-font 'mode-line-inactive "Consolas-14")
   (set-face-font 'mode-line-buffer-id "Consolas-15"))
