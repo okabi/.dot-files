@@ -174,3 +174,11 @@
 ;; 矩形編集を便利に。C-RETで開始
 (cua-mode t)
 (setq cua-enable-cua-keys nil) ; t をセットすると、C-cでコピーとか出来る
+
+;; 背景透過設定
+;; M-x alpha で数値を入力すれば背景透過設定できる．デフォルトは 80
+(set-frame-parameter nil 'alpha (cons 80 '(90)))
+(defun alpha (alpha-num)
+  "set frame parameter 'alpha"
+  (interactive "nAlpha: ")
+  (set-frame-parameter nil 'alpha (cons alpha-num '(90))))
