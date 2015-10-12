@@ -108,6 +108,12 @@
     ;; これを書かないと何故か日本語が化ける
     (setq markdown-command-needs-filename t)))
 
+;; tramp
+;; ローカルのEmacsでリモートサーバのファイルを編集(/plink:user@hostname#port:filepath)
+(when (string-equal (system-name) "PC-GRANDMOTHER")
+  (setenv "PATH" (concat "C:\\Program Files (x86)\\PuTTY" ";" (getenv "PATH"))) 
+  (when (require 'tramp nil t)
+    (setq tramp-default-method "pscp")))
 
 ;;; 表示とか見た目について
 ;; カラーテーマの変更(v24以降は標準のやつ、それより前はcolor-themeを利用)
@@ -184,3 +190,7 @@
   "set frame parameter 'alpha"
   (interactive "nAlpha: ")
   (set-frame-parameter nil 'alpha (cons alpha-num '(90))))
+
+;; バックアップファイルの作成を無効化(Trampで接続時にエラー音がうるさい)
+(setq make-backup-files nil)
+(setq auto-save-default nil) 
