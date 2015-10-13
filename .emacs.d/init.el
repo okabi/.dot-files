@@ -87,19 +87,6 @@
       ;; 使用するシェルを指定
       (setq multi-term-program "/usr/local/bin/bash")))
 
-;; howm
-;; メモ・情報整理用
-;; C-c , , または M-x howm-menu
-;; howmメモ保存場所
-(setq howm-directory (concat user-emacs-directory "/howm"))
-;; howm-menuの言語を日本語に
-(setq howm-menu-lang 'ja)
-;; howmメモを1日1ファイルにする
-; (setq howm-file-name-format "%Y/%m/%Y-%m-%d".howm")
-;; howm-modeを読み込む
-(when (require 'howm-mode nil t)
-  (define-key global-map (kbd "C-c , ,") 'howm-menu))
-
 ;; markdown-mode
 (when (require 'markdown-mode nil t)
   (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
@@ -110,7 +97,7 @@
 
 ;; tramp
 ;; ローカルのEmacsでリモートサーバのファイルを編集(/plink:user@hostname#port:filepath)
-(when (string-equal (system-name) "PC-GRANDMOTHER")
+(when (or (string-equal (system-name) "PC-GRANDMOTHER") (string-equal (system-name) "PC-B012"))
   (setenv "PATH" (concat "C:\\Program Files (x86)\\PuTTY" ";" (getenv "PATH"))) 
   (when (require 'tramp nil t)
     (setq tramp-default-method "pscp")))

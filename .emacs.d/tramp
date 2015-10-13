@@ -1,4 +1,4 @@
-;; -*- emacs-lisp -*- <15/10/09 15:44:20 c:/Users/okabi/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <15/10/13 23:47:14 c:/Users/admin/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; You can delete it, forcing Tramp to reapply the checks.
 
@@ -40,6 +40,4 @@
   ("perl-cwd-realpath" t)
   ("perl" "\\perl")
   ("git" "\\git")
-  ("uid-integer" 1000))
- (["pscp" "okaabi" "syaro_global" nil nil]
-  nil))
+  ("uid-integer" 1000)))
