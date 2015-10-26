@@ -125,6 +125,14 @@
 ;; ハイライト部分を赤色に(デフォルトは灰色で背景と被って見づらい)
 (set-face-background 'highlight "red")
 
+;; 左側に行表示
+(when (require 'hlinum nil t)
+  (custom-set-variables '(global-linum-mode t)))
+
+;; スクロールをスムースに
+(when (require 'smooth-scroll nil t)
+  (smooth-scroll-mode t))
+
 
 ;;; モードラインについて
 ;; フォント設定
