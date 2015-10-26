@@ -3,12 +3,20 @@
 ;;   http://www.emacswiki.org/emacs/download/auto-install.el
 ;; redo+
 ;;   http://www.emacswiki.org/emacs/download/redo+.el
-;; hown
-;;   http://howm.sourceforge.jp/
 ;; color-theme
 ;;   http://code.google.com/p/gnuemacscolorthemetest/
-;; markdown-mode
-;;   
+
+;;; About elpa
+;; M-x list-packages 
+
+;;; 定数について
+(defvar windows?
+  (or (string-equal (system-name) "PC-GRANDMOTHER") (string-equal (system-name) "PC-B012"))
+  "If your computer is Windows, windows? is true.")
+(defvar linux?
+  (string-equal (system-name) "ibako")
+  "If your computer is Ubuntu, linux? is true.")
+
 
 ;;; load-path について
 ;; user-emacs-directory の定義(v23より前バージョン)
@@ -28,11 +36,6 @@
 ;; 引数のディレクトリとそのサブディレクトリをload-pathに追加
 (add-to-load-path "public_repos" "elisp" "elpa" "auth")
 
-;; twitter用
-(when (require 'twittering-mode nil t)
-  ;; 認証情報を読み込む
-  (let ((path "twitter-auth"))
-    (load path t)))
 
 ;;; パッケージについて
 ;; auto-install
@@ -73,34 +76,19 @@
   (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
   (ac-config-default))
 
-;; egg
-;; GitをEmacs上で使えるようにする
-;; C-x v s で git status 相当、sでステージ・アンステージ(add)、cでコミット
-(when (executable-find "git")
-  (require 'egg nil t))
-
-;; multi-term
-;; Emacs上でターミナルを起動
-;; M-x multi-term
-(when (string-equal (system-name) "ibako")
-    (when (require 'multi-term nil t)
-      ;; 使用するシェルを指定
-      (setq multi-term-program "/usr/local/bin/bash")))
-
-;; markdown-mode
-(when (require 'markdown-mode nil t)
-  (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
-  (when (string-equal (system-name) "PC-B012")
-    (setq markdown-command "perl C:\\strawberry\\perl\\site\\bin\\Markdown.pl")
-    ;; これを書かないと何故か日本語が化ける
-    (setq markdown-command-needs-filename t)))
-
 ;; tramp
 ;; ローカルのEmacsでリモートサーバのファイルを編集(/plink:user@hostname#port:filepath)
-(when (or (string-equal (system-name) "PC-GRANDMOTHER") (string-equal (system-name) "PC-B012"))
+(when windows?
   (setenv "PATH" (concat "C:\\Program Files (x86)\\PuTTY" ";" (getenv "PATH"))) 
   (when (require 'tramp nil t)
     (setq tramp-default-method "pscp")))
+
+;; iedit
+;; リファクタリングに利用．C-; で対応部分同時編集モードに入る．
+;; このモード中に M-H で対象を関数内に限る．
+(when (require 'iedit nil t)
+  (setq iedit-case-sensitive-default nil))
+
 
 ;;; 表示とか見た目について
 ;; カラーテーマの変更(v24以降は標準のやつ、それより前はcolor-themeを利用)
@@ -112,7 +100,7 @@
 
 ;; フォント設定
 ;; Windows
-(when (or (string-equal (system-name) "PC-GRANDMOTHER") (string-equal (system-name) "PC-B012"))
+(when windows?
   (set-face-attribute 'default nil :family "Consolas" :height 140)
   (set-fontset-font (frame-parameter nil 'font)
 		    'japanese-jisx0208
@@ -120,7 +108,7 @@
   (add-to-list 'face-font-rescale-alist
 	       '(".*Hiragino Kaku Gothic ProN.*" . 1.2)))
 ;; Ubuntu(ibako)
-(when (string-equal (system-name) "ibako")
+(when linux?
   (add-to-list 'default-frame-alist '(font . "ricty-13.5")))
 
 ;; メニューバーおよびツールバーを非表示に
@@ -134,14 +122,17 @@
 (set-face-background 'show-paren-match-face nil) ; 強調表示の背景をナシに
 (set-face-underline-p 'show-paren-match-face "yellow") ; 強調表示部に下線を引く
 
+;; ハイライト部分を赤色に(デフォルトは灰色で背景と被って見づらい)
+(set-face-background 'highlight "red")
+
 
 ;;; モードラインについて
 ;; フォント設定
-(when (or (string-equal (system-name) "PC-GRANDMOTHER") (string-equal (system-name) "PC-B012"))
+(when windows?
   (set-face-font 'mode-line "Consolas-14")
   (set-face-font 'mode-line-inactive "Consolas-14")
   (set-face-font 'mode-line-buffer-id "Consolas-15"))
-(when (string-equal (system-name) "ibako")
+(when linux?
   (set-face-font 'mode-line "ricty-14")
   (set-face-font 'mode-line-inactive "ricty-14")
   (set-face-font 'mode-line-buffer-id "ricty-15"))
@@ -166,10 +157,6 @@
 ;; ウィンドウ切り替え。(C-x o)と同じ
 (define-key global-map (kbd "C-t") 'other-window)
 
-;; 矩形編集を便利に。C-RETで開始
-(cua-mode t)
-(setq cua-enable-cua-keys nil) ; t をセットすると、C-cでコピーとか出来る
-
 ;; 背景透過設定
 ;; M-x alpha で数値を入力すれば背景透過設定できる．デフォルトは 80
 (set-frame-parameter nil 'alpha (cons 80 '(90)))
@@ -181,3 +168,40 @@
 ;; バックアップファイルの作成を無効化(Trampで接続時にエラー音がうるさい)
 (setq make-backup-files nil)
 (setq auto-save-default nil) 
+
+
+;;; Ruby
+;; Ruby ファイルの関連付け
+(autoload 'ruby-mode "ruby-mode"
+  "Mode for editing ruby source files" t)
+(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+
+;; インデントをいい感じにする
+(setq ruby-deep-indent-paren-style nil)
+(defadvice ruby-indent-line (after unindent-closing-paren activate)
+  (let ((column (current-column))
+        indent offset)
+    (save-excursion
+      (back-to-indentation)
+      (let ((state (syntax-ppss)))
+        (setq offset (- column (current-column)))
+        (when (and (eq (char-after) ?\))
+                   (not (zerop (car state))))
+          (goto-char (cadr state))
+          (setq indent (current-indentation)))))
+    (when indent
+      (indent-line-to indent)
+      (when (> offset 0) (forward-char offset)))))
+
+;; end に対応する部分をピックアップする
+(when (require 'ruby-block nil t)
+  (ruby-block-mode t)
+  ;; 対応部分にハイライトかつミニバッファに表示
+  (setq ruby-block-highlight-toggle t))
+
+;; end を自動で補完
+(when (require 'ruby-electric nil t)
+  (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+  (setq ruby-electric-expand-delimiters-list nil))

@@ -1,26 +1,8 @@
-;; -*- emacs-lisp -*- <15/10/13 23:47:14 c:/Users/admin/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <15/10/26 22:53:48 c:/Users/admin/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; You can delete it, forcing Tramp to reapply the checks.
 
-((["pscp" "okabi" "syaro" nil nil]
-  ("locale" "LC_ALL=en_US.utf8")
-  ("uname" "Linux 3.13.0-53-generic")
-  ("test" "test")
-  ("remote-path"
-   ("/bin" "/usr/bin" "/usr/sbin" "/usr/local/bin"))
-  ("remote-shell" "/bin/sh")
-  ("~" "/home/okabi")
-  ("file-exists" "test -e")
-  ("perl-file-spec" t)
-  ("perl-cwd-realpath" t)
-  ("perl" "\\perl")
-  ("readlink" "\\readlink")
-  ("stat" "\\stat")
-  ("id" "/usr/bin/id")
-  ("gid-integer" 1000)
-  ("gid-string" "okabi")
-  ("git" "\\git"))
- (["pscp" "okabi" "syaro_global" nil nil]
+((["pscp" "okabi" "syaro_global" nil nil]
   ("locale" "LC_ALL=en_US.utf8")
   ("uname" "Linux 3.13.0-53-generic")
   ("test" "test")
@@ -40,4 +22,22 @@
   ("perl-cwd-realpath" t)
   ("perl" "\\perl")
   ("git" "\\git")
-  ("uid-integer" 1000)))
+  ("uid-integer" 1000))
+ (["pscp" "okabi" "syaro" nil nil]
+  ("locale" "LC_ALL=en_US.utf8")
+  ("uname" "Linux 3.13.0-53-generic")
+  ("test" "test")
+  ("remote-path"
+   ("/bin" "/usr/bin" "/usr/sbin" "/usr/local/bin"))
+  ("remote-shell" "/bin/sh")
+  ("~" "/home/okabi")
+  ("file-exists" "test -e")
+  ("perl-file-spec" t)
+  ("perl-cwd-realpath" t)
+  ("perl" "\\perl")
+  ("readlink" "\\readlink")
+  ("stat" "\\stat")
+  ("id" "/usr/bin/id")
+  ("gid-integer" 1000)
+  ("gid-string" "okabi")
+  ("git" "\\git")))
