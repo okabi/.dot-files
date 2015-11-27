@@ -9,7 +9,7 @@
 ;;; About elpa
 ;; M-x list-packages 
 
-;;; 定数について
+;;; 定数とロードパスの追加
 (defvar windows?
   (or (string-equal (system-name) "PC-GRANDMOTHER") (string-equal (system-name) "PC-B012"))
   "If your computer is Windows, windows? is true.")
@@ -17,8 +17,6 @@
   (string-equal (system-name) "ibako")
   "If your computer is Ubuntu, linux? is true.")
 
-
-;;; load-path について
 ;; user-emacs-directory の定義(v23より前バージョン)
 (when (< emacs-major-version 23)
   (defvar user-emacs-directory "~/.emacs.d"))
@@ -50,11 +48,6 @@
   ;; (setq url-proxy-services '(("http" . "localhost:8339")))
   ;; install-elispの関数を利用可能にする
   (auto-install-compatibility-setup))
-
-;; redo+
-(when (require 'redo+ nil t)
-  ;; C-.にリドゥを割り当てる
-  (global-set-key (kbd "C-.") 'redo))
 
 ;; package
 ;; Emacs 24以降は標準搭載。それ以前は落としてくること
@@ -89,14 +82,26 @@
 (when (require 'iedit nil t)
   (setq iedit-case-sensitive-default nil))
 
+;; バックアップファイルの作成を無効化(Trampで接続時にエラー音がうるさい)
+(setq make-backup-files nil)
+(setq auto-save-default nil) 
+
 
 ;;; 表示とか見た目について
-;; カラーテーマの変更(v24以降は標準のやつ、それより前はcolor-themeを利用)
+;; カラーテーマの変更
 (if (> emacs-major-version 23)
   (load-theme 'manoj-dark t)
   (when (require 'color-theme nil t)
     (color-theme-initialize)
     (color-theme-tty-dark)))
+
+;; 背景透過設定
+;; M-x alpha で数値を入力すれば背景透過設定できる．デフォルトは 80
+(set-frame-parameter nil 'alpha (cons 80 '(90)))
+(defun alpha (alpha-num)
+  "set frame parameter 'alpha"
+  (interactive "nAlpha: ")
+  (set-frame-parameter nil 'alpha (cons alpha-num '(90))))
 
 ;; フォント設定
 ;; Windows
@@ -107,7 +112,7 @@
 		    (font-spec :family "Hiragino Kaku Gothic ProN"))
   (add-to-list 'face-font-rescale-alist
 	       '(".*Hiragino Kaku Gothic ProN.*" . 1.2)))
-;; Ubuntu(ibako)
+;; Ubuntu
 (when linux?
   (add-to-list 'default-frame-alist '(font . "ricty-13.5")))
 
@@ -122,6 +127,22 @@
 (set-face-background 'show-paren-match-face nil) ; 強調表示の背景をナシに
 (set-face-underline-p 'show-paren-match-face "yellow") ; 強調表示部に下線を引く
 
+;; 空白・タブを強調
+(require 'whitespace)
+(setq whitespace-style '(face
+                         trailing
+                         tabs
+                         ))
+(global-whitespace-mode 1)
+
+(set-face-attribute 'whitespace-tab nil
+                    :background "Red"
+                    :foreground nil
+                    :underline nil)
+
+;; 文字コードをutf-8に
+(prefer-coding-system 'utf-8)
+
 ;; ハイライト部分を赤色に(デフォルトは灰色で背景と被って見づらい)
 (set-face-background 'highlight "red")
 
@@ -132,6 +153,9 @@
 ;; スクロールをスムースに
 (when (require 'smooth-scroll nil t)
   (smooth-scroll-mode t))
+
+;; 最終行に必ず一行挿入する
+(setq require-final-newline t)
 
 
 ;;; モードラインについて
@@ -159,23 +183,18 @@
 
 
 ;;; キーバインドについて
-;; 行の折り返し表示を切り替える
-(define-key global-map (kbd "C-c l") 'toggle-truncate-lines)
+;; redo+ (C-. でリドゥ)
+(when (require 'redo+ nil t)
+  (global-set-key (kbd "C-.") 'redo))
 
 ;; ウィンドウ切り替え。(C-x o)と同じ
 (define-key global-map (kbd "C-t") 'other-window)
 
-;; 背景透過設定
-;; M-x alpha で数値を入力すれば背景透過設定できる．デフォルトは 80
-(set-frame-parameter nil 'alpha (cons 80 '(90)))
-(defun alpha (alpha-num)
-  "set frame parameter 'alpha"
-  (interactive "nAlpha: ")
-  (set-frame-parameter nil 'alpha (cons alpha-num '(90))))
+;; C-h を指定行ジャンプに
+(define-key global-map "\C-h" 'goto-line)
 
-;; バックアップファイルの作成を無効化(Trampで接続時にエラー音がうるさい)
-(setq make-backup-files nil)
-(setq auto-save-default nil) 
+;; 行の先頭でC-kを一回押すだけで行全体を消去する
+(setq kill-whole-line t)
 
 
 ;;; Ruby
