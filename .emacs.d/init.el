@@ -43,7 +43,7 @@
   ;; インストールディレクトリの指定
   (setq auto-install-directory (concat user-emacs-directory "/elisp/"))
   ;; EmacsWikiに登録されているelispの名前を取得する
-  (auto-install-update-emacswiki-package-name t)
+  ;; (auto-install-update-emacswiki-package-name t)
   ;; 必要であればプロキシの設定を行う
   ;; (setq url-proxy-services '(("http" . "localhost:8339")))
   ;; install-elispの関数を利用可能にする

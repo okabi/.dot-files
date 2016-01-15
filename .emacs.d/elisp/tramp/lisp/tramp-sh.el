@@ -50,7 +50,7 @@ If it is nil, no compression at all will be applied."
   :type '(choice (const nil) integer))
 
 ;;;###tramp-autoload
-(defcustom tramp-copy-size-limit 10240
+(defcustom tramp-copy-size-limit 10240000
   "The maximum file size where inline copying is preferred over an \
 out-of-the-band copy.
 If it is nil, out-of-the-band copy will be used without a check."
