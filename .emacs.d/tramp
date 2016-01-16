@@ -1,4 +1,4 @@
-;; -*- emacs-lisp -*- <16/01/15 20:43:32 c:/Users/admin/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <16/01/16 23:24:05 c:/Users/admin/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; You can delete it, forcing Tramp to reapply the checks.
 
@@ -104,4 +104,6 @@
   ("ls-quoting-style" t)
   ("id" "/usr/bin/id")
   ("gid-string" "okabi")
-  ("gid-integer" 1000)))
+  ("gid-integer" 1000)
+  ("git" "\\git")
+  ("uid-integer" 1000)))

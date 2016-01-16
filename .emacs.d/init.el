@@ -7,7 +7,7 @@
 ;;   http://code.google.com/p/gnuemacscolorthemetest/
 
 ;;; About elpa
-;; M-x list-packages 
+;; M-x list-packages
 
 ;;; 定数とロードパスの追加
 (defvar windows?
@@ -26,10 +26,10 @@
   (let (path)
     (dolist (path paths paths)
       (let ((default-directory
-	      (expand-file-name (concat user-emacs-directory path))))
-	(add-to-list 'load-path default-directory)
-	(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-	    (normal-top-level-add-subdirs-to-load-path))))))
+              (expand-file-name (concat user-emacs-directory path))))
+        (add-to-list 'load-path default-directory)
+        (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+            (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; 引数のディレクトリとそのサブディレクトリをload-pathに追加
 (add-to-load-path "public_repos" "elisp" "elpa" "auth")
@@ -56,9 +56,9 @@
 (when (require 'package nil t)
   ;; パッケージリポジトリにMarmaladeと開発者運営のELPAを追加
   (add-to-list 'package-archives
-	       '("marmalade" . "http://marmalade-repo.org/packages/"))
+               '("marmalade" . "http://marmalade-repo.org/packages/"))
   (add-to-list 'package-archives
-	       '("ELPA" . "http://tromey.com/elpa/"))
+               '("ELPA" . "http://tromey.com/elpa/"))
   ;; インストールしたパッケージにロードパスを通して読み込む
   (package-initialize))
 
@@ -72,7 +72,7 @@
 ;; tramp
 ;; ローカルのEmacsでリモートサーバのファイルを編集(/plink:user@hostname#port:filepath)
 (when windows?
-  (setenv "PATH" (concat "C:\\Program Files (x86)\\PuTTY" ";" (getenv "PATH"))) 
+  (setenv "PATH" (concat "C:\\Program Files (x86)\\PuTTY" ";" (getenv "PATH")))
   (when (require 'tramp nil t)
     (setq tramp-default-method "pscp")))
 
@@ -84,7 +84,7 @@
 
 ;; バックアップファイルの作成を無効化(Trampで接続時にエラー音がうるさい)
 (setq make-backup-files nil)
-(setq auto-save-default nil) 
+(setq auto-save-default nil)
 
 
 ;;; 表示とか見た目について
@@ -108,10 +108,10 @@
 (when windows?
   (set-face-attribute 'default nil :family "Consolas" :height 140)
   (set-fontset-font (frame-parameter nil 'font)
-		    'japanese-jisx0208
-		    (font-spec :family "Hiragino Kaku Gothic ProN"))
+                    'japanese-jisx0208
+                    (font-spec :family "Hiragino Kaku Gothic ProN"))
   (add-to-list 'face-font-rescale-alist
-	       '(".*Hiragino Kaku Gothic ProN.*" . 1.2)))
+               '(".*Hiragino Kaku Gothic ProN.*" . 1.2)))
 ;; Ubuntu
 (when linux?
   (add-to-list 'default-frame-alist '(font . "ricty-13.5")))
@@ -173,9 +173,9 @@
 (column-number-mode t)
 
 ;; 時計を表示
-(setq display-time-string-forms 
+(setq display-time-string-forms
       '((format "%s/%s(%s) %s:%s"
-		month day dayname 24-hours minutes)))
+                month day dayname 24-hours minutes)))
 (display-time-mode t)
 
 ;; バッテリー残量を表示
@@ -192,6 +192,10 @@
 
 ;; C-h を指定行ジャンプに
 (define-key global-map "\C-h" 'goto-line)
+
+;; C-x m を compile に
+(define-key global-map "\C-xm" 'compile)
+(setq compilation-scroll-output t)
 
 ;; 行の先頭でC-kを一回押すだけで行全体を消去する
 (setq kill-whole-line t)
