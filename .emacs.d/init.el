@@ -190,8 +190,11 @@
 ;; ウィンドウ切り替え。(C-x o)と同じ
 (define-key global-map (kbd "C-t") 'other-window)
 
-;; C-h を指定行ジャンプに
-(define-key global-map "\C-h" 'goto-line)
+;; C-h をバックスペースに
+(define-key global-map (kbd "C-h") 'delete-backward-char)
+
+;; C-: を指定行ジャンプに
+(define-key global-map (kbd "C-:") 'goto-line)
 
 ;; C-x m を compile に
 (define-key global-map "\C-xm" 'compile)
