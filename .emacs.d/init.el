@@ -82,6 +82,11 @@
 (when (require 'iedit nil t)
   (setq iedit-case-sensitive-default nil))
 
+;; git-gutter-fringe
+;; git diff の結果を表示する
+(when (require 'git-gutter-fringe nil t)
+  (global-git-gutter-mode t))
+
 ;; バックアップファイルの作成を無効化(Trampで接続時にエラー音がうるさい)
 (setq make-backup-files nil)
 (setq auto-save-default nil)
