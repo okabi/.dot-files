@@ -32,7 +32,7 @@
             (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; 引数のディレクトリとそのサブディレクトリをload-pathに追加
-(add-to-load-path "public_repos" "elisp" "elpa" "auth")
+(add-to-load-path "public_repos" "elisp" "elpa")
 
 
 ;;; パッケージについて
@@ -208,6 +208,10 @@
 ;; 行の先頭でC-kを一回押すだけで行全体を消去する
 (setq kill-whole-line t)
 
+;; C-RET で矩形選択モードに入る
+(cua-mode t)
+(setq cua-enable-cua-keys nil)
+
 
 ;;; Ruby
 ;; Ruby ファイルの関連付け
@@ -244,3 +248,14 @@
 (when (require 'ruby-electric nil t)
   (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
   (setq ruby-electric-expand-delimiters-list nil))
+
+
+;;; Haskell
+;; Haskell ファイルの関連付け
+(autoload 'haskell-mode "haskell-mode"
+  "Mode for editing haskelk source files" t)
+(add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
+
+;; インデント方式の変更
+(custom-set-variables
+ '(haskell-mode-hook '(turn-on-haskell-indentation)))
