@@ -11,7 +11,7 @@
 
 ;;; 定数とロードパスの追加
 (defvar windows?
-  (or (string-equal (system-name) "PC-GRANDMOTHER") (string-equal (system-name) "PC-B012"))
+  (or (string-equal (system-name) "PC-GRANDMOTHER") (string-equal (system-name) "PC-A246"))
   "If your computer is Windows, windows? is true.")
 (defvar linux?
   (string-equal (system-name) "ibako")
@@ -32,7 +32,7 @@
             (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; 引数のディレクトリとそのサブディレクトリをload-pathに追加
-(add-to-load-path "public_repos" "elisp" "elpa")
+(add-to-load-path "elisp" "elpa")
 
 
 ;;; パッケージについて
