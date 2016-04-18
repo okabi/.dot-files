@@ -21,6 +21,10 @@
 (when (< emacs-major-version 23)
   (defvar user-emacs-directory "~/.emacs.d"))
 
+;; last-command-char が消されている環境があるらしいので
+(define-obsolete-variable-alias 'last-command-char 'last-command-event "at least 19.34")
+
+
 ;; load-pathを追加する関数の定義
 (defun add-to-load-path (&rest paths)
   (let (path)
