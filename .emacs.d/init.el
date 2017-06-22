@@ -216,6 +216,8 @@
 (cua-mode t)
 (setq cua-enable-cua-keys nil)
 
+;; タブを入れないようにする
+(setq-default indent-tabs-mode nil)
 
 ;;; Ruby
 ;; Ruby ファイルの関連付け
