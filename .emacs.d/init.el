@@ -11,11 +11,14 @@
 
 ;;; 定数とロードパスの追加
 (defvar windows?
-  (or (string-equal (system-name) "PC-GRANDMOTHER") (string-equal (system-name) "PC-A246"))
+  (or (string-equal (system-name) "PC-GRANDMOTHER") (string-equal (system-name) "PC-A246") (string-equal (system-name) "DESKTOP-U40CCUV"))
   "If your computer is Windows, windows? is true.")
-(defvar linux?
-  (string-equal (system-name) "ibako")
-  "If your computer is Ubuntu, linux? is true.")
+(defvar home?
+  (or (string-equal (system-name) "PC-GRANDMOTHER") (string-equal (system-name) "PC-A246"))
+  "If your computer is yours, home? is true.")
+(defvar lab?
+  (string-equal (system-name) "DESKTOP-U40CCUV")
+  "If your computer is Lab's, lab? is true.")
 
 ;; user-emacs-directory の定義(v23より前バージョン)
 (when (< emacs-major-version 23)
@@ -75,8 +78,12 @@
 
 ;; tramp
 ;; ローカルのEmacsでリモートサーバのファイルを編集(/plink:user@hostname#port:filepath)
-(when windows?
+(when (and home? windows?)
   (setenv "PATH" (concat "C:\\Program Files (x86)\\PuTTY" ";" (getenv "PATH")))
+  (when (require 'tramp nil t)
+    (setq tramp-default-method "pscp")))
+(when (and lab? windows?)
+  (setenv "PATH" (concat "D:\\okabi\\Programs\\PuTTY" ";" (getenv "PATH")))
   (when (require 'tramp nil t)
     (setq tramp-default-method "pscp")))
 
@@ -122,8 +129,8 @@
   (add-to-list 'face-font-rescale-alist
                '(".*Hiragino Kaku Gothic ProN.*" . 1.2)))
 ;; Ubuntu
-(when linux?
-  (add-to-list 'default-frame-alist '(font . "ricty-13.5")))
+;; (when linux?
+;;   (add-to-list 'default-frame-alist '(font . "ricty-13.5")))
 
 ;; メニューバーおよびツールバーを非表示に
 (tool-bar-mode 0)
@@ -173,10 +180,10 @@
   (set-face-font 'mode-line "Consolas-14")
   (set-face-font 'mode-line-inactive "Consolas-14")
   (set-face-font 'mode-line-buffer-id "Consolas-15"))
-(when linux?
-  (set-face-font 'mode-line "ricty-14")
-  (set-face-font 'mode-line-inactive "ricty-14")
-  (set-face-font 'mode-line-buffer-id "ricty-15"))
+;; (when linux?
+;;   (set-face-font 'mode-line "ricty-14")
+;;   (set-face-font 'mode-line-inactive "ricty-14")
+;;   (set-face-font 'mode-line-buffer-id "ricty-15"))
 
 ;; カラム番号を表示
 (column-number-mode t)
